@@ -149,7 +149,7 @@ const Chatbot = ({
 
     const userMessage = message.trim();
 
-    shouldStickRef.current = true; // follow the chat you just wrote in
+    shouldStickRef.current = true;
 
     setMessages((previous) => [
       ...previous,
@@ -176,7 +176,6 @@ const Chatbot = ({
         }),
       });
 
-      // Problems found before streaming starts come back as normal JSON
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || "Chatbot request failed");
@@ -197,7 +196,7 @@ const Chatbot = ({
 
         // Each piece from the server ends with a blank line
         const events = buffer.split("\n\n");
-        buffer = events.pop(); // the last part may be unfinished
+        buffer = events.pop();
 
         for (const event of events) {
           if (!event.startsWith("data: ")) continue;
